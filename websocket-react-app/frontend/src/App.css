@@ -1,0 +1,111 @@
+:root {
+  --vh: 1vh;
+  --white-smoke: #f4f4f8;
+  --taupe-gray: #e1e1df;
+  --wenge: #5e5b52;
+  --ucla-blue: #5b5f97;
+  --fiery-rose: #f45b69;
+  --line-height: 1.5em;
+  --back-theme: #110e17;
+  --main-theme: #5b5f97
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  font-weight: normal;
+}
+
+:root{
+  width: 100%;
+}
+
+html {
+  font-family: "Heebo", sans-serif;
+  font-size: 16px;
+  line-height: var(--line-height);
+  color: var(--back-theme);
+  width: 100%;
+  min-width: 320px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  background-color: var(--back-theme);
+  width: 100%;
+  min-width: 320px;
+}
+
+.App {
+  display: inline-block;
+  background-color: var(--back-theme);
+  color: var(--back-theme);
+  font-family: Arial, sans-serif;
+  max-width:  calc(var(--vh, 1vh) * 90);
+  justify-self: end;
+  width: 100%;
+  min-width: 320px;
+}
+
+.top-section {
+  height: 70vh; /* or any fixed value */
+  overflow: hidden; /* Prevent internal growth */
+  position: relative;
+}
+
+.room-button:hover {
+  background-color: #0056b3;
+}
+
+.hidden-button {
+  display: none;
+}
+
+.fab-join-room {
+  position: fixed;
+  bottom: 2rem;
+  right: 1rem;
+  background-color: var(--main-theme);
+  color: white;
+  border: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.fab-join-room:hover {
+  background-color: var(--main-theme);
+}
+
+@keyframes fillBar {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.progress-bar {
+  animation: fillBar linear forwards;
+}
+
+@media (orientation: landscape) {
+  .App {
+    max-width:  100vw;
+  }
+
+  .slide-controls {
+    max-height: 35px;
+  }
+}

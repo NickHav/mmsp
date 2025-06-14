@@ -1,0 +1,31 @@
+.synchronize-time-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.synchronize-time-box {
+  background: white;
+  padding: 2em;
+  border-radius: 1em;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.send-timestamp-button {
+  margin-top: 1em;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}

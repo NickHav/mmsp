@@ -1,0 +1,100 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  pointer-events: auto;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 90vw;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+.popup-content h2 {
+  margin-bottom: 20px;
+}
+
+.popup-content label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.popup-content input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.join-room-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.join-room-button:hover {
+  background-color: #0056b3;
+}
+
+.close-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #c82333;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+@media (orientation: landscape) {
+  .popup-content {
+    width: 50vw;
+  }
+
+  .popup-content label {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  .popup-content input {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+}

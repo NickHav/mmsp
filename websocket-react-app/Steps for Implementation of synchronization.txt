@@ -1,0 +1,55 @@
+Steps for Implementation of users joining the room and synchronization of the video state.
+
+User Requests to Join the Room:
+
+The participant sends a WebSocket request to the server to join the room.
+The server puts the participant on hold and initiates the synchronization process.
+Server Sends Pause Request to All Users:
+
+The server sends a pause message to all users in the room, including the creator.
+The message includes the creator's current video timestamp to ensure everyone synchronizes to the same point.
+Users Acknowledge Pause:
+
+Each user pauses their video and synchronizes with the creator's timestamp.
+Once paused, users send a synchronized message back to the server, confirming they are ready.
+Participant Joins and Synchronizes:
+
+Once all users have acknowledged the pause, the server sends the current room state (including the video timestamp and chat history) to the new participant.
+The participant synchronizes their video state with the creator's timestamp.
+Creator Resumes Playback:
+
+After the new participant has joined and synchronized, the creator regains control of the video.
+The creator can press play, and the server broadcasts the play message to all users, resuming the video for everyone.
+Extra Notes
+Disable Video Controls During Synchronization:
+
+While synchronization is in progress, all users (including the creator) should have their video controls disabled to prevent interference.
+Timeout Mechanism:
+
+To handle edge cases (e.g., a user fails to acknowledge the pause), the server should implement a timeout. If a user does not respond within a certain time, the server proceeds with the synchronization for the responsive users.
+Error Handling:
+
+If a user disconnects or fails to synchronize, the server should handle this gracefully (e.g., notify the remaining users and proceed with synchronization).
+Scalability:
+
+For larger rooms, ensure the server can handle multiple simultaneous synchronization requests efficiently.
+Benefits of This Approach
+Consistency:
+
+Ensures all users are synchronized to the same video state before playback resumes.
+Control:
+
+The creator remains the sole controller of the video, maintaining a single source of truth for the video state.
+User Experience:
+
+Prevents desynchronization issues and ensures a seamless experience for all participants.
+Potential Challenges
+Latency:
+
+Network delays could cause slight variations in when users pause or synchronize their videos.
+Disconnected Users:
+
+If a user disconnects during synchronization, the server needs to handle this without disrupting the process for others.
+Edge Cases:
+
+Users joining or leaving the room during synchronization need to be handled carefully to avoid inconsistencies.
