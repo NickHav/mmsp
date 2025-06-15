@@ -22,7 +22,7 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
       videoElement.pause();
       videoElement.currentTime = timestamp;
       const ws = window.existingWebSocket;
-      consoel.log('Attempting to send synchronizeTime message:');
+      console.log('Attempting to send synchronizeTime message:');
 
       if (ws && ws.readyState === WebSocket.OPEN) {
         console.log('Websocket is open, sending synchronizeTime message:', timestamp);
