@@ -5,7 +5,7 @@ const fs = require('fs');
 const router = express.Router();
 
 // Directory που περιέχει τα βίντεο
-const videoDirectory = path.join(__dirname, '../public/videos');
+const videoDirectory = path.join(__dirname, '../../public/videos');
 
 // Stream αρχείο βίντεο
 router.get('/stream/:videoTitle', (req, res) => {
