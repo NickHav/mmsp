@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../../frontend/build')));
 
 // Serve static αρχεία για τα βίντεο και τις εικόνες
-app.use('/images', express.static(path.join(__dirname,'../../public/images')));
+app.use('/images', express.static(path.join(__dirname,'../public/images')));
 
 app.use('/api', apiRoutes);
 
