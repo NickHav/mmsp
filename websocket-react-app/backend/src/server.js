@@ -14,11 +14,12 @@ const wss = new WebSocket.Server({ server });
 const fs = require('fs');
 const { getLocalIPAddress } = require('./utils/sharedFunctions');
 const PORT = process.env.PORT || 5000;
-const localIP = getLocalIPAddress(); // Get the local IP address
-// Generate the config.json file
-const configPath = path.join(__dirname, '../../frontend/public/config.json');
 
-const configData = { serverIP: localIP };
+// const localIP = getLocalIPAddress(); // Get the local IP address
+// // Generate the config.json file
+// const configPath = path.join(__dirname, '../../frontend/public/config.json');
+
+// const configData = { serverIP: localIP };
 
 // Point to the correct public directory (relative to server.js)
 const publicPath = path.join(__dirname, '../public');

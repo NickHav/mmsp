@@ -46,12 +46,12 @@ function App() {
   // Fetch the server IP address from the config.json file
   useEffect(() => {
     console.log('Set up Server IP');
-    
+
     fetch('/config.json')
       .then((response) => response.json())
       .then((data) => {
         setServerIP(data.serverIP);
-        setIsConfigLoaded(true); 
+        setIsConfigLoaded(true);
         console.log(`Server IP: ${serverIP}`);
       })
       .catch((error) => console.error('Error fetching server IP:', error));
@@ -64,20 +64,17 @@ function App() {
 
 
   useEffect(() => {
-    if (!serverIP) return; // Don't run until serverIP is set
-
-    console.log(`Fetch the movies json file from server: ${serverIP}`);
-    fetch(`http://${serverIP}:5000/public/movies.json`)
-      .then((response) => {
-        if (!response.ok) throw new Error('Failed to fetch movies');
-        return response.json();
-      })
+    // Fetch the movie list directly from your backend
+    fetch('/public/movies.json')
+      .then((response) => response.json())
       .then((data) => {
         setMovieList(data);
-        setIsMoviesLoaded(true); 
+        setIsMoviesLoaded(true);
       })
-      .catch((error) => console.error('Error fetching movie data:', error));
-  }, [serverIP]);
+      .catch((error) => {
+        console.error('Error fetching movie list:', error);
+      });
+  }, []);
 
   useEffect(() => {
     const fetchAllDetails = async () => {
@@ -106,9 +103,9 @@ function App() {
       });
 
       const results = await Promise.all(promises);
-      const filteredResults = results.filter(Boolean); 
+      const filteredResults = results.filter(Boolean);
       setMovieListFromAPI(filteredResults);
-      setIsMovieDetailsLoaded(true); 
+      setIsMovieDetailsLoaded(true);
     };
 
     if (movieList.length > 0) {
@@ -164,31 +161,6 @@ function App() {
     );
     resetSliderInterval();
   };
-
-  // useEffect(() => {
-  //   const fetchMovieDetails = async () => {
-  //     try {
-  //       const response = await fetch('https://www.omdbapi.com/?apikey=757c734e&t=forest'); // Replace with your real API endpoint
-  //       const data = await response.json();
-  //       console.log(data);
-
-  //       const selectedData = {
-  //         Title: data.Title,
-  //         Genre: data.Genre,
-  //         Plot: data.Plot,
-  //         Poster: data.Poster,
-  //         imdbRating: data.imdbRating,
-  //       };
-
-  //       setMovieInfo(selectedData);
-  //     } catch (error) {
-  //       console.error('Error fetching movie info:', error);
-  //     }
-  //   };
-
-  //   fetchMovieDetails();
-  // }, []);
-
 
   // Close on outside click
   useEffect(() => {
@@ -264,16 +236,16 @@ function App() {
       });
 
       playerInstanceRef.current.src({
-        src: `http://${serverIP}:5000/video/stream/${selectedVideo}`,
+        src: `/video/stream/${selectedVideo}`,
         type: 'video/mp4',
       });
 
       const subtitleFileName = selectedVideo.replace(/\.[^/.]+$/, '');
 
       const subtitleTracks = [
-        { srclang: 'en', label: 'English', src: `http://${serverIP}:5000/subtitles/${subtitleFileName}_en.vtt` },
-        { srclang: 'es', label: 'Spanish', src: `http://${serverIP}:5000/subtitles/${subtitleFileName}_es.vtt` },
-        { srclang: 'fr', label: 'French', src: `http://${serverIP}:5000/subtitles/${subtitleFileName}_fr.vtt` },
+        { srclang: 'en', label: 'English', src: `/subtitles/${subtitleFileName}_en.vtt` },
+        { srclang: 'es', label: 'Spanish', src: `/subtitles/${subtitleFileName}_es.vtt` },
+        { srclang: 'fr', label: 'French', src: `/subtitles/${subtitleFileName}_fr.vtt` },
       ];
 
       subtitleTracks.forEach((track) => {
