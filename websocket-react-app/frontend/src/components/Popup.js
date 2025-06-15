@@ -95,7 +95,7 @@ function Popup({ serverIP, onSubmit, onClose }) {
 
         // Build the WebSocket URL
         const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-        const wsUrl = `${protocol}://${serverIP}:5000?username=${encodeURIComponent(data.username)}&connectionid=${encodeURIComponent(connectionid)}`;
+        const wsUrl = `${protocol}://${window.location.host}?username=${encodeURIComponent(data.username)}&connectionid=${encodeURIComponent(connectionid)}`;
         wsManager.connect(wsUrl);
 
         wsManager.send(JSON.stringify({ type: 'username', username: data.username }));
