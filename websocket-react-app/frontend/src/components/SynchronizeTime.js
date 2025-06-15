@@ -24,19 +24,16 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
       videoElement.currentTime = timestamp;
       console.log('Attempting to send synchronizeTime message:');
 
-      const ws = wsManager.getWebSocket && wsManager.getWebSocket();
-      if (ws && ws.readyState === WebSocket.OPEN) {
-        console.log('Websocket is open, sending synchronizeTime message:', timestamp);
-        wsManager.send(JSON.stringify({ 
-          type: 'synchronizeTime',
-          timestamp, 
-          user: sessionStorage.getItem('username'),
-          roomCode: sessionStorage.getItem('room')
-        }));
-        onClose();
-      } else {
-        console.error('WebSocket is not open');
-      }
+      console.log('Websocket is open, sending synchronizeTime message:', timestamp);
+
+      wsManager.send(JSON.stringify({
+        type: 'synchronizeTime',
+        timestamp,
+        user: sessionStorage.getItem('username'),
+        roomCode: sessionStorage.getItem('room')
+      }));
+      onClose();
+
     } else if (syncType === 'received' && videoElement) {
       console.log('Received synchronizeTime request, setting video to timestamp:', timestamp);
       videoElement.pause();
