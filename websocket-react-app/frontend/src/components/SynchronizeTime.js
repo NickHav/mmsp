@@ -22,9 +22,6 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
     if (syncType === 'send' && videoElement) {
       videoElement.pause();
       videoElement.currentTime = timestamp;
-      console.log('Attempting to send synchronizeTime message:');
-
-      console.log('Websocket is open, sending synchronizeTime message:', timestamp);
 
       wsManager.send(JSON.stringify({
         type: 'synchronizeTime',
