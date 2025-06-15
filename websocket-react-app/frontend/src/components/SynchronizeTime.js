@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import wsManager from './WebSocketManager';
 import './SynchronizeTime.css';
 
 function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
@@ -21,17 +22,20 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
     if (syncType === 'send' && videoElement) {
       videoElement.pause();
       videoElement.currentTime = timestamp;
-      const ws = window.existingWebSocket;
       console.log('Attempting to send synchronizeTime message:');
 
+      const ws = wsManager.getWebSocket && wsManager.getWebSocket();
       if (ws && ws.readyState === WebSocket.OPEN) {
         console.log('Websocket is open, sending synchronizeTime message:', timestamp);
-        ws.send(JSON.stringify({ 
+        wsManager.send(JSON.stringify({ 
           type: 'synchronizeTime',
           timestamp, 
           user: sessionStorage.getItem('username'),
-          roomCode: sessionStorage.getItem('room') }));
+          roomCode: sessionStorage.getItem('room')
+        }));
         onClose();
+      } else {
+        console.error('WebSocket is not open');
       }
     } else if (syncType === 'received' && videoElement) {
       console.log('Received synchronizeTime request, setting video to timestamp:', timestamp);
