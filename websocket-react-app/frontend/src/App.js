@@ -454,7 +454,7 @@ function App() {
               onCreateRoom={handleCreateRoom}
               selectedMovie={{
                 title: selectedMovieForRoom, // Pass the selected movie title
-                url: `http://${serverIP}:5000/video/stream/${selectedMovieForRoom}`, // Construct the movie URL
+                url: `${window.location.host}/video/stream/${selectedMovieForRoom}`, // Construct the movie URL
               }}
             />
             {isUsernamePopupVisible && (
@@ -517,7 +517,7 @@ function App() {
         }
       />
       {/* Streaming Room Route */}
-      <Route path="/mmsw/streamingroom" element={<StreamingRoom />} />
+      <Route path="/streamingroom" element={<StreamingRoom />} />
     </Routes>
   );
 }

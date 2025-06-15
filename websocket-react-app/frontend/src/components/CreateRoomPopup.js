@@ -75,7 +75,7 @@ function CreateRoomPopup({ isVisible, onClose, selectedMovie }) {
       sessionStorage.setItem('room', roomDetails.roomCode);
 
       if (data.message === 'Room created successfully') {
-        navigate('/mmsw/streamingroom');
+        navigate('/streamingroom');
       }
     } catch (error) {
       console.error('Error creating room:', error);

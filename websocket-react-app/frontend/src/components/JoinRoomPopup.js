@@ -44,7 +44,7 @@ function JoinRoomPopup({ isVisible, onClose, onJoinRoom }) {
       sessionStorage.setItem('isCreator', false);
       sessionStorage.setItem('room', roomCode);
       onJoinRoom(data.room);
-      navigate('/mmsw/streamingroom');
+      navigate('/streamingroom');
     } catch (error) {
       console.error('Error joining room:', error);
       setErrorMessage(error.message);
