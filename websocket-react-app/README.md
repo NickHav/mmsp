@@ -5,25 +5,40 @@ This project is a simple WebSocket application built with Node.js for the backen
 ## Project Structure
 
 ```
-websocket-react-app
-├── backend
-│   ├── src
-│   │   ├── server.js          # Entry point for the backend server
-│   │   └── websocket.js       # Manages WebSocket connections
-│   ├── package.json           # Backend dependencies and scripts
-│   └── README.md              # Documentation for the backend
-├── frontend
-│   ├── public
-│   │   └── index.html         # Main HTML file for the React app
-│   ├── src
-│   │   ├── App.js             # Main component of the React application
-│   │   ├── components
-│   │   │   └── Popup.js       # Popup component for username input
-│   │   ├── index.js           # Entry point for the React application
-│   │   └── websocket.js       # Manages WebSocket connections from the frontend
-│   ├── package.json           # Frontend dependencies and scripts
-│   └── README.md              # Documentation for the frontend
-└── README.md                  # Overall documentation for the project
+websocket-react-app/
+├── package.json
+├── backend/
+│   ├── package.json
+│   ├── README.md
+│   ├── public/
+│   │   ├── movies.json
+│   │   ├── images/
+│   │   ├── Subtitles/
+│   │   └── videos/
+│   └── src/
+│       ├── server.js
+│       ├── apis/
+│       ├── utils/
+│       └── validation/
+├── frontend/
+│   ├── .gitignore
+│   ├── package.json
+│   ├── build/
+│   │   ├── asset-manifest.json
+│   │   ├── config.json
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   ├── robots.txt
+│   │   └── static/
+│   ├── public/
+│   │   ├── config.json
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   └── robots.txt
+│   └── src/
+│       ├── App.css
+│       ├── App.js
+│       └── ... (other source files and components)
 ```
 
 ## Getting Started
