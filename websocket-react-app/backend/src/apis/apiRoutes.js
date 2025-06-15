@@ -7,8 +7,8 @@ const path = require('path');
 const fs = require('fs');
 
 // Directories για τα βίντεο και τις εικόνες
-const videoDirectory = path.join(__dirname, '../public/videos');
-const imageDirectory = path.join(__dirname, '../public/images');
+const videoDirectory = path.join(__dirname, '../../public/videos');
+const imageDirectory = path.join(__dirname, '../../public/images');
 
 
 // API route για να ελέγξουμε αν το username είναι διαθέσιμο
