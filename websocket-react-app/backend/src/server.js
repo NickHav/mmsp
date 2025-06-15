@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 5000;
 const publicPath = path.join(__dirname, '../public');
 app.use('/public', express.static(publicPath));
 
-fs.writeFileSync(configPath, JSON.stringify(configData, null, 2), 'utf-8');
+//fs.writeFileSync(configPath, JSON.stringify(configData, null, 2), 'utf-8');
 // Για να κάνουμε parse τα JSON body των requests
 app.use(express.json());
 
@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../../frontend/build')));
 
 // Serve static αρχεία για τα βίντεο και τις εικόνες
-app.use('/images', express.static('C:\\Users\\nicko\\Documents\\Images'));
+app.use('/images', express.static(path.join(__dirname,'../Images')));
 
 app.use('/api', apiRoutes);
 
@@ -44,7 +44,7 @@ app.get('/mmps', (req, res) => {
 app.use('/video', videoRoutes);
 
 // Serve αρχες υποτίτλων
-app.use('/subtitles', express.static('C:\\Users\\nicko\\Documents\\Subtitles'));
+app.use('/subtitles', express.static(path.join(__dirname, '../Subtitles')));
 
 // Serve React app για όλες τις άλλες διαδρομές
 app.use((req, res, next) => {
