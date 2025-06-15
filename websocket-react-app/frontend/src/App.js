@@ -454,7 +454,7 @@ function App() {
               onCreateRoom={handleCreateRoom}
               selectedMovie={{
                 title: selectedMovieForRoom, // Pass the selected movie title
-                url: `${window.location.host}/video/stream/${selectedMovieForRoom}`, // Construct the movie URL
+                url: `/video/stream/${selectedMovieForRoom}`, // Construct the movie URL
               }}
             />
             {isUsernamePopupVisible && (

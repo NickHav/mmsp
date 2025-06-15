@@ -44,7 +44,7 @@ app.get('/mmps', (req, res) => {
 app.use('/video', videoRoutes);
 
 // Serve αρχες υποτίτλων
-app.use('/subtitles', express.static(path.join(__dirname, '../Subtitles')));
+app.use('/subtitles', express.static(path.join(__dirname, '../public/subtitles')));
 
 // Serve React app για όλες τις άλλες διαδρομές
 app.use((req, res, next) => {
