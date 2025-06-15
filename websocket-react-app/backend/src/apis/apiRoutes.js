@@ -5,9 +5,11 @@ const generateRoomCode = require('../utils/sharedFunctions').generateRoomCode; /
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
+
 // Directories για τα βίντεο και τις εικόνες
-const videoDirectory = 'C:\\Users\\nicko\\Documents\\Videos';
-const imageDirectory = 'C:\\Users\\nicko\\Documents\\Images';
+const videoDirectory = path.join(__dirname, '../public/videos');
+const imageDirectory = path.join(__dirname, '../public/images');
+
 
 // API route για να ελέγξουμε αν το username είναι διαθέσιμο
 router.post('/check-username', (req, res) => {
