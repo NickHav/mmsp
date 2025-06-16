@@ -24,6 +24,7 @@ const handleRoomMessage = (parsedMessage) => {
             for (const user of room.users) {
                 const userWs = Array.from(sharedState.wss.clients).find((client) => client.id === user);
                 if (userWs && userWs.readyState === WebSocket.OPEN) {
+                    console.log(`Sending usersList message to user: ${user}`);
                     userWs.send(JSON.stringify({ type: 'usersList', users: room.users, }));
                 }
             }
