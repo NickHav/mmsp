@@ -70,6 +70,13 @@ function setupWebSocket(wss, usernames) {
             break; // Exit the loop once the user is removed
           }
         }
+
+         for (const user of room.users) {
+          const userWs = Array.from(sharedState.wss.clients).find((client) => client.id === user);
+          if (userWs && userWs.readyState === WebSocket.OPEN) {
+            userWs.send(JSON.stringify({ type: 'usersList', users: room.users }));
+          }
+        }
       }
     });
   });
