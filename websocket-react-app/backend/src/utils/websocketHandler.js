@@ -67,18 +67,16 @@ function setupWebSocket(wss, usernames) {
           if (userIndex !== -1) {
             room.users.splice(userIndex, 1); // Remove the user from the room
             console.log(`User ${ws.id} removed from room ${roomCode}`);
-            break; // Exit the loop once the user is removed
-          }
-
-          for (const user of room.users) {
-            const userWs = Array.from(sharedState.wss.clients).find((client) => client.id === user);
-            if (userWs && userWs.readyState === WebSocket.OPEN) {
-              userWs.send(JSON.stringify({ type: 'usersList', users: room.users }));
+            
+            for (const user of room.users) {
+              const userWs = Array.from(sharedState.wss.clients).find((client) => client.id === user);
+              if (userWs && userWs.readyState === WebSocket.OPEN) {
+                userWs.send(JSON.stringify({ type: 'usersList', users: room.users }));
+              }
             }
+            break;
           }
         }
-
-
       }
     });
   });
