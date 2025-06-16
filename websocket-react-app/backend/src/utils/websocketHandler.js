@@ -10,7 +10,7 @@ function heartbeat() {
 function setupWebSocket(wss, usernames) {
   sharedState.wss = wss; // Αποθηκεύουμε το WebSocket server στο shared state
 
-  
+
   wss.on('connection', (ws, req) => {
     ws.on('pong', heartbeat);
     const queryParams = url.parse(req.url, true).query;
@@ -28,7 +28,7 @@ function setupWebSocket(wss, usernames) {
     }
 
     ws.on('pong', () => {
-      ws.isAlive = true; 
+      ws.isAlive = true;
     });
 
     ws.on('message', (message) => {
@@ -69,14 +69,16 @@ function setupWebSocket(wss, usernames) {
             console.log(`User ${ws.id} removed from room ${roomCode}`);
             break; // Exit the loop once the user is removed
           }
-        }
 
-         for (const user of room.users) {
-          const userWs = Array.from(sharedState.wss.clients).find((client) => client.id === user);
-          if (userWs && userWs.readyState === WebSocket.OPEN) {
-            userWs.send(JSON.stringify({ type: 'usersList', users: room.users }));
+          for (const user of room.users) {
+            const userWs = Array.from(sharedState.wss.clients).find((client) => client.id === user);
+            if (userWs && userWs.readyState === WebSocket.OPEN) {
+              userWs.send(JSON.stringify({ type: 'usersList', users: room.users }));
+            }
           }
         }
+
+
       }
     });
   });
@@ -84,7 +86,7 @@ function setupWebSocket(wss, usernames) {
   const interval = setInterval(function ping() {
     wss.clients.forEach(function each(ws) {
       if (ws.isAlive === false) return ws.terminate();
-  
+
       ws.isAlive = false;
       ws.ping();
     });
