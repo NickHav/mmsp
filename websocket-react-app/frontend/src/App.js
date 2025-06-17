@@ -480,17 +480,21 @@ function App() {
             <main className={isPopupVisible ? 'blurred' : ''}>
               <MainSeperator />
               <div className="movie-list">
-                {filteredVideos.map((video, index) => (
-                  <MovieCard
-                    key={index}
-                    imageUrl={video.image || 'https://via.placeholder.com/150'}
-                    title={video.title}
-                    description={video.description}
-                    onClick={() => handleVideoSelection(video.title)}
-                    isSelected={selectedMovieForRoom === video.title}
-                    onStreamToRoom={handleStreamToRoom}
-                  />
-                ))}
+                {filteredVideos.map((video, index) => {
+                  // Remove extension from the title
+                  const titleWithoutExtension = video.title.replace(/\.[^/.]+$/, '');
+                  return (
+                    <MovieCard
+                      key={index}
+                      imageUrl={video.image || 'https://via.placeholder.com/150'}
+                      title={titleWithoutExtension}
+                      description={video.description}
+                      onClick={() => handleVideoSelection(titleWithoutExtension)}
+                      isSelected={selectedMovieForRoom === titleWithoutExtension}
+                      onStreamToRoom={handleStreamToRoom}
+                    />
+                  );
+                })}
               </div>
               {/* {selectedVideo && (
                 <div className="video-player">
