@@ -44,7 +44,7 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
       <div className="synchronize-time-box" ref={boxRef}>
         <p>
           {syncType === 'send'
-            ? '⏰ Current Timestamp:'
+            ? '🕒 Current Timestamp:'
             : '🔄 Sync request received! Target timestamp:'}
           <br />
           <strong>{timestamp?.toFixed(2)}s</strong>
