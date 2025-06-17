@@ -90,7 +90,7 @@ websocket-react-app/
 
 ## Contributing
 
-Feel free to submit issues or pull requests for improvements or bug fixes. 
+No. 
 
 ## License
 
