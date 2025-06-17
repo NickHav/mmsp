@@ -12,7 +12,7 @@ function MovieCard({ imageUrl, title, description, onClick, isSelected, onStream
         <button
           className={`stream-to-room-button ${isSelected ? 'selected' : ''}`}
           onClick={(e) => {
-            e.stopPropagation(); // Prevent triggering the parent onClick
+            e.stopPropagation(); 
             onStreamToRoom(title);
           }}
         >

@@ -65,7 +65,7 @@ function setupWebSocket(wss, usernames) {
           const room = rooms[roomCode];
           const userIndex = room.users.indexOf(ws.id);
           if (userIndex !== -1) {
-            room.users.splice(userIndex, 1); // Remove the user from the room
+            room.users.splice(userIndex, 1); 
             console.log(`User ${ws.id} removed from room ${roomCode}`);
             
             for (const user of room.users) {
