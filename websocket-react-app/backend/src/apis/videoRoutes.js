@@ -9,12 +9,20 @@ const videoDirectory = path.join(__dirname, '../../public/videos');
 
 // Stream αρχείο βίντεο
 router.get('/stream/:videoTitle', (req, res) => {
-  const videoPath = path.join(videoDirectory, req.params.videoTitle);
+  const requestedTitle = req.params.videoTitle.toLowerCase();
 
-  if (!fs.existsSync(videoPath)) {
+  // Find the first file in the directory that matches the title (ignoring extension)
+  const files = fs.readdirSync(videoDirectory);
+  const matchedFile = files.find(file => {
+    const fileTitle = path.parse(file).name.toLowerCase();
+    return fileTitle === requestedTitle;
+  });
+
+  if (!matchedFile) {
     return res.status(404).send('Video not found');
   }
 
+  const videoPath = path.join(videoDirectory, matchedFile);
   const stat = fs.statSync(videoPath);
   const fileSize = stat.size;
   const range = req.headers.range;
@@ -35,7 +43,7 @@ router.get('/stream/:videoTitle', (req, res) => {
       'Content-Range': `bytes ${start}-${end}/${fileSize}`,
       'Accept-Ranges': 'bytes',
       'Content-Length': chunkSize,
-      'Content-Type': 'video/mp4',
+      'Content-Type': 'video/mp4', // You may want to detect the real mime type
     };
 
     res.writeHead(206, head);
@@ -43,7 +51,7 @@ router.get('/stream/:videoTitle', (req, res) => {
   } else {
     const head = {
       'Content-Length': fileSize,
-      'Content-Type': 'video/mp4',
+      'Content-Type': 'video/mp4', // You may want to detect the real mime type
     };
 
     res.writeHead(200, head);
