@@ -129,13 +129,13 @@ function Chat({ messages, setMessages, onToggleSync }) {
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
           ></textarea>
-          <button
+          {/* <button
             className="message-button"
             id="message-button"
             onClick={handleSendMessage}
           >
             Send
-          </button>
+          </button> */}
           <Send
             className="message-button"
             onClick={() => handleSendMessage}
