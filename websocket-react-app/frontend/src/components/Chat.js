@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import UsersList from './UsersList';
 import Messages from './Messsages';
-import { ClockFading, Smile } from 'lucide-react';
+import { ClockFading, Smile, Send } from 'lucide-react';
 import wsManager from './WebSocketManager';
 
 function Chat({ messages, setMessages, onToggleSync }) {
@@ -136,6 +136,11 @@ function Chat({ messages, setMessages, onToggleSync }) {
           >
             Send
           </button>
+          <Send
+            className="message-button"
+            onClick={() => handleSendMessage}
+            title="Send Message"
+          />
         </div>
       </div>
       {isUserModalOpen && (
