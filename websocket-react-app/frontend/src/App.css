@@ -50,8 +50,8 @@ body {
 }
 
 .top-section {
-  height: 70vh; /* or any fixed value */
-  overflow: hidden; /* Prevent internal growth */
+  height: 70vh; 
+  overflow: hidden; 
   position: relative;
 }
 

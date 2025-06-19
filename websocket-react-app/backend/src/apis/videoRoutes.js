@@ -43,7 +43,7 @@ router.get('/stream/:videoTitle', (req, res) => {
       'Content-Range': `bytes ${start}-${end}/${fileSize}`,
       'Accept-Ranges': 'bytes',
       'Content-Length': chunkSize,
-      'Content-Type': 'video/mp4', // You may want to detect the real mime type
+      'Content-Type': 'video/mp4',
     };
 
     res.writeHead(206, head);
@@ -51,7 +51,7 @@ router.get('/stream/:videoTitle', (req, res) => {
   } else {
     const head = {
       'Content-Length': fileSize,
-      'Content-Type': 'video/mp4', // You may want to detect the real mime type
+      'Content-Type': 'video/mp4', 
     };
 
     res.writeHead(200, head);

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
-/* Container for the movie list */
+
 .movie-list {
   display: flex;
   flex-wrap: wrap;
@@ -7,7 +7,6 @@
   gap: 20px;
 }
 
-/* Movie card styles */
 .movie-card {
   display: flex;
   flex-direction: column;
@@ -93,6 +92,6 @@
 }
 
 .stream-to-room-button.selected {
-  background-color: #28a745; /* Green background for selected state */
+  background-color: #28a745; 
   color: white;
 }

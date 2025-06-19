@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
 
-/* #region PC Styling */
 :root {
   --vh: 1vh;
   --white-smoke: #f4f4f8;
@@ -44,7 +43,6 @@ body {
 .grid {
   display: grid;
   grid-template-columns: 3fr 1fr;
-  /* 80% video, 20% chat */
   height: calc(var(--vh, 1vh) * 100);
   width: 100%;
   overflow: hidden;
@@ -75,7 +73,6 @@ body {
   box-shadow: 0 0 8px var(--taupe-gray);
   font-size: 20px;
   object-fit: contain;
-  /* Maintain aspect ratio and cover the area */
 }
 
 .grid_chat {
@@ -123,7 +120,6 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-  /* REMOVE extra padding here */
   width: 100%;
   font-size: 1.2m;
 }
@@ -135,7 +131,6 @@ body {
   gap: 0.4em;
   padding: 0.4em 0.8em;
   font-size: 1em;
-  /* slightly smaller than original */
   color: var(--ucla-blue);
 }
 
@@ -256,7 +251,6 @@ body {
   grid-area: chat_input;
   display: grid;
   grid-template-columns: 1fr auto;
-  /* same effect as 80/20, but avoids % overflow */
   width: 100%;
   height: 100%;
   min-width: 0;
@@ -267,11 +261,8 @@ body {
 
 .message_input {
   resize: none;
-  /* Prevent user from manually resizing */
   overflow-y: auto;
-  /* Allow vertical scroll if needed */
   height: 2.5em;
-  /* Or adjust as needed */
   padding: 0.3em;
   border: 1px solid var(--taupe-gray);
   border-radius: 4px;
@@ -296,8 +287,6 @@ body {
   font-weight: bold;
 }
 
-/* #endregion*/
-/* #region responsive portrait */
 @media (max-width: 768px) {
   html,
   body,
@@ -424,8 +413,7 @@ body {
 
 
 }
-/* #endregion */
-/* #region responsive lanscape */
+
 @media  (orientation: landscape) {
 
   html,
@@ -586,7 +574,6 @@ body {
   border-radius: 10px;
   border: 2px solid var(--white-smoke);
 }
-/* #endregion */
 
 .message_input::-webkit-scrollbar-thumb:hover {
   background-color: var(--wenge);

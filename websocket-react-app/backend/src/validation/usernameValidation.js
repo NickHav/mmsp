@@ -5,9 +5,9 @@ function usernameConnectionIdMatch(queryParams){
         const user = usernames.get(queryParams.username);
         if (user.connectionid !== queryParams.connectionid) {
           console.error('Connection ID mismatch for username:', queryParams.username);
-          return false; // Όταν το connection ID δεν ταιριάζει
+          return false; 
         }
-        return true; // Το username και το connection ID ταιριάζουν
+        return true; 
     } 
     return false;
 }

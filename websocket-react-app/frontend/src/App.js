@@ -481,7 +481,6 @@ function App() {
               <MainSeperator />
               <div className="movie-list">
                 {filteredVideos.map((video, index) => {
-                  // Remove extension from the title
                   const titleWithoutExtension = video.title.replace(/\.[^/.]+$/, '');
                   return (
                     <MovieCard
@@ -496,26 +495,6 @@ function App() {
                   );
                 })}
               </div>
-              {/* {selectedVideo && (
-                <div className="video-player">
-                  <h2>Now Playing: {selectedVideo}</h2>
-                  <div data-vjs-player>
-                    <video
-                      ref={videoPlayerRef}
-                      className="video-js"
-                      width="600"
-                    ></video>
-                  </div>
-                  <button
-                    className="hidden-button"
-                    onClick={() => {
-                      setSelectedVideo(null);
-                    }}
-                  >
-                    Close Player
-                  </button>
-                </div>
-              )} */}
             </main>
             {!isJoinRoomPopupVisible && (
               <button
@@ -528,7 +507,6 @@ function App() {
           </div>
         }
       />
-      {/* Streaming Room Route */}
       <Route path="/streamingroom" element={<StreamingRoom />} />
     </Routes>
   );

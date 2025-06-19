@@ -147,7 +147,7 @@ router.post('/rooms/join', (req, res) => {
 
 router.post('/rooms/removeUser', (req, res) => {
   const { roomCode, username } = req.body;
-  console.log('Remove user request:', req.body); // Log the request body
+
   if (!roomCode || !username) {
     return res.status(400).json({ error: 'Room code and username are required' });
   }

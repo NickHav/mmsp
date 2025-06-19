@@ -9,11 +9,11 @@ function getLocalIPAddress() {
     for (const name of Object.keys(interfaces)) {
       for (const iface of interfaces[name]) {
         if (iface.family === 'IPv4' && !iface.internal) {
-          return iface.address; // Return the first non-internal IPv4 address
+          return iface.address; 
         }
       }
     }
-    return '127.0.0.1'; // Fallback to localhost if no external IP is found
+    return '127.0.0.1'; 
   }
 
 module.exports = { generateRoomCode, getLocalIPAddress };

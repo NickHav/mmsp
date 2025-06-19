@@ -1,5 +1,5 @@
 import React from 'react';
-import './RatingCircle.css'; // Optional if you separate styles
+import './RatingCircle.css'; 
 
 const RatingCircle = ({ rating }) => {
   const radius = 20;

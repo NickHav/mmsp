@@ -1,10 +1,10 @@
 const { getLocalIPAddress } = require('./sharedFunctions');
-// Το αρχείο αυτό περιέχει κοινές μεταβλητές που χρησιμοποιούνται σε όλο το backend.
+
 const usernames = new Map();
 const rooms = {};
 const sharedState = {
-    wss: null, // Initialize wss as null
+    wss: null, 
 };
-const sharedIPAddress = getLocalIPAddress(); // Get the local IP address
+const sharedIPAddress = getLocalIPAddress(); 
 
 module.exports = { usernames, rooms, sharedState, sharedIPAddress };

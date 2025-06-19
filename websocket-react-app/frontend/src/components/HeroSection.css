@@ -56,20 +56,6 @@
   flex-shrink: 0;
 }
 
-/* .hero-grid {
-  position: relative;
-  display: grid;
-  grid-template-rows: repeat(5, auto);
-  overflow: hidden;
-  justify-content: space-between;
-  align-items: center;
-  justify-content: center;
-  height: calc(var(--vh, 1vh) * 100);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-} */
-
 .movie-info {
   background: linear-gradient(135deg,
       rgba(0, 0, 0, 0.6),
@@ -285,7 +271,6 @@
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   flex-shrink: 0;
-  /* Do not shrink */
 }
 
 .progress-bar-fill {
