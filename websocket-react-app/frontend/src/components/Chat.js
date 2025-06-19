@@ -128,6 +128,12 @@ function Chat({ messages, setMessages, onToggleSync }) {
             placeholder="Your message..."
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage();
+              }
+            }}
           ></textarea>
           {/* <button
             className="message-button"
@@ -137,11 +143,11 @@ function Chat({ messages, setMessages, onToggleSync }) {
             Send
           </button> */}
           <div className="message-button-wrapper">
-          <Send
-            className="message-button"
-            onClick={() => handleSendMessage}
-            title="Send Message"
-          />
+            <Send
+              className="message-button"
+              onClick={handleSendMessage}
+              title="Send Message"
+            />
           </div>
         </div>
       </div>
