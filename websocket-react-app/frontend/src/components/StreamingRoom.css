@@ -275,7 +275,7 @@ body {
   font-family: 'DM Sans', sans-serif;
 }
 
-.message-button {
+.message-button-wrapper{
   height: 2.5em;
   padding: 0.3em;
   width: 100%;
@@ -285,6 +285,10 @@ body {
   border: 1px solid var(--taupe-gray);
   box-shadow: 0 0 3px var(--taupe-gray);
   font-weight: bold;
+}
+
+.message-button {
+  color: var(--white-smoke);  
 }
 
 @media (max-width: 768px) {

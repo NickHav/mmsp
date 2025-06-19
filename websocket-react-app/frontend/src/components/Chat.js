@@ -136,11 +136,13 @@ function Chat({ messages, setMessages, onToggleSync }) {
           >
             Send
           </button> */}
+          <div className="message-button-wrapper">
           <Send
             className="message-button"
             onClick={() => handleSendMessage}
             title="Send Message"
           />
+          </div>
         </div>
       </div>
       {isUserModalOpen && (
