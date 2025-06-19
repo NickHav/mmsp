@@ -186,6 +186,16 @@ body {
   font-size: 1em;
 }
 
+.toggle_users_wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle_users_icon{
+  color: var(--white-smoke);
+}
+
 .toggle_users_button {
   display: none;
 }
