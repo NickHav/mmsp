@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import UsersList from './UsersList';
 import Messages from './Messsages';
-import { ClockFading, Smile, Send } from 'lucide-react';
+import { ClockFading, Smile, Send, UserRoundSearch } from 'lucide-react';
 import wsManager from './WebSocketManager';
 
 function Chat({ messages, setMessages, onToggleSync }) {
@@ -85,10 +85,16 @@ function Chat({ messages, setMessages, onToggleSync }) {
     <>
       <div className="grid_chat">
         <UsersList users={users} />
-        <button className="toggle_users_button"
-          onClick={openUserModal}
-        >
-          Display Users</button>
+        <div classname="toggle_users_wrapper">
+          <UserRoundSearch
+            className="toggle_users_icon"
+          />
+          <button className="toggle_users_button"
+            onClick={openUserModal}
+          >
+            Display Users
+          </button>
+        </div>
         <Messages messages={messages} />
         <div className="chat_tools">
           <label htmlFor="colorPicker">User Color</label>
