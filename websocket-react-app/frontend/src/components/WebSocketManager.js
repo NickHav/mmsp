@@ -1,104 +1,62 @@
-import React, { useEffect, useRef, useState } from 'react';
-import wsManager from './WebSocketManager';
-import './SynchronizeTime.css';
+class WebSocketManager {
+  constructor() {
+    if (!WebSocketManager.instance) {
+      this.ws = null;
+      this.listeners = new Set();
+      this.sendQueue = [];
+      WebSocketManager.instance = this;
+    }
+    return WebSocketManager.instance;
+  }
 
-function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
-  const boxRef = useRef(null);
-  const [countdown, setCountdown] = useState(null);
+  connect(url, onOpenSendData = null) {
+    if (this.ws) {
+      this.ws.close();
+    }
+    this.ws = new WebSocket(url);
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (boxRef.current && !boxRef.current.contains(event.target)) {
-        onClose();
+    this.ws.onmessage = (event) => {
+      this.listeners.forEach((listener) => listener(event));
+    };
+
+    this.ws.onopen = () => {
+      console.log('WebSocket connection opened');
+      // Send any queued messages
+      this.sendQueue.forEach((data) => this.send(data));
+      this.sendQueue = [];
+      // Send data passed for onOpen
+      if (onOpenSendData) {
+        this.send(onOpenSendData);
       }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [onClose]);
 
-  useEffect(() => {
-    // Use wsManager's addMessageListener
-    const handleMessage = (event) => {
-      try {
-        const msg = JSON.parse(event.data);
-        if (msg.type === 'allUsersSynchronized') {
-          setCountdown(5);
-        }
-      } catch (e) {}
+    this.ws.onclose = () => {
+      console.log('WebSocket connection closed');
     };
-    wsManager.addMessageListener(handleMessage);
-    return () => {
-      wsManager.removeMessageListener(handleMessage);
+
+    this.ws.onerror = (err) => {
+      console.error('WebSocket error:', err);
     };
-  }, []);
+  }
 
-  useEffect(() => {
-    if (countdown === null) return;
-    if (countdown === 0) {
-      // Start video and close popup
-      if (videoElement) {
-        videoElement.play();
-      }
-      onClose();
-      return;
+  send(data) {
+    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      this.ws.send(data);
+    } else {
+      // Queue the message to send when the connection opens
+      this.sendQueue.push(data);
+      console.warn('WebSocket is not open. Queuing message. Ready state:', this.ws?.readyState);
     }
-    const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-    return () => clearTimeout(timer);
-  }, [countdown, videoElement, onClose]);
+  }
 
-  const handleAction = () => {
-    if (syncType === 'send' && videoElement) {
-      videoElement.pause();
-      videoElement.currentTime = timestamp;
+  addMessageListener(listener) {
+    this.listeners.add(listener);
+  }
 
-      wsManager.send(JSON.stringify({
-        type: 'synchronizeTime',
-        timestamp,
-        user: sessionStorage.getItem('username'),
-        roomCode: sessionStorage.getItem('room')
-      }));
-      onClose();
-
-    } else if (syncType === 'received' && videoElement) {
-      videoElement.pause();
-      videoElement.currentTime = timestamp;
-      wsManager.send(JSON.stringify({
-        type: 'syncAccepted',
-        user: sessionStorage.getItem('username'),
-        roomCode: sessionStorage.getItem('room')
-      }));
-      onClose();
-    }
-  };
-
-  return (
-    <div className="synchronize-time-overlay">
-      <div className="synchronize-time-box" ref={boxRef}>
-        {countdown === null ? (
-          <>
-            <p>
-              {syncType === 'send'
-                ? '🕒 Current Timestamp:'
-                : '🔄 Sync request received! Target timestamp:'}
-              <br />
-              <strong>{timestamp?.toFixed(2)}s</strong>
-            </p>
-            <button className="send-timestamp-button" onClick={handleAction}>
-              {syncType === 'send' ? 'Send' : 'Sync'}
-            </button>
-          </>
-        ) : (
-          <p>
-            ✅ All users synchronized!<br />
-            Starting in <strong>{countdown}</strong>...
-          </p>
-        )}
-      </div>
-    </div>
-  );
+  removeMessageListener(listener) {
+    this.listeners.delete(listener);
+  }
 }
 
-export default SynchronizeTime;
+const wsManager = new WebSocketManager();
+export default wsManager;
