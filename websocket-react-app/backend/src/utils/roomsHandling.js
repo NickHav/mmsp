@@ -85,9 +85,13 @@ const handleRoomMessage = (parsedMessage) => {
                 // Optionally, reset for next sync round
                 room.syncAcceptedUsers = [];
             }
+
         } else {
-            console.error('Room not found:', roomCode);
-            ws.send(JSON.stringify({ type: 'error', message: 'Room not found' }));
+            console.error('Unknown message type:', parsedMessage.type);
         }
+    } else {
+        console.error('Room not found:', roomCode);
+        ws.send(JSON.stringify({ type: 'error', message: 'Room not found' }));
     }
-    module.exports = { handleRoomMessage };
+}
+module.exports = { handleRoomMessage };
