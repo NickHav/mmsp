@@ -24,7 +24,8 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
       videoElement.currentTime = timestamp;
 
       wsManager.send(JSON.stringify({
-        type: 'syncAccepted',
+        type: 'synchronizeTime',
+        timestamp,
         user: sessionStorage.getItem('username'),
         roomCode: sessionStorage.getItem('room')
       }));
@@ -35,8 +36,7 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
       videoElement.pause();
       videoElement.currentTime = timestamp;
       wsManager.send(JSON.stringify({
-        type: 'synchronizeTime',
-        timestamp,
+        type: 'syncAccepted',
         user: sessionStorage.getItem('username'),
         roomCode: sessionStorage.getItem('room')
       }));
