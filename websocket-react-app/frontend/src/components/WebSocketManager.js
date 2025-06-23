@@ -20,6 +20,7 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
   }, [onClose]);
 
   useEffect(() => {
+    // Use wsManager's addMessageListener
     const handleMessage = (event) => {
       try {
         const msg = JSON.parse(event.data);
