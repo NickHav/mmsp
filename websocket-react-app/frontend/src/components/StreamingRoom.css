@@ -305,7 +305,7 @@ body {
   color: var(--white-smoke);  
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1020px) {
   html,
   body,
   #root,

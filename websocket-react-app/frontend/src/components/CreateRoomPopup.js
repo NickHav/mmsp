@@ -40,6 +40,19 @@ function CreateRoomPopup({ isVisible, onClose, selectedMovie }) {
     }
   };
 
+  const handleNumberOfUsersKeyDown = (e) => {
+    // Allow: backspace, tab, left/right arrows, delete
+    if (
+      ['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete'].includes(e.key)
+    ) {
+      return;
+    }
+    // Prevent: e, E, +, -, ., and any non-digit
+    if (!/^[0-9]$/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+
   const handleCreateRoom = async () => {
     if (numberOfUsers < 2 || numberOfUsers > 5) {
       setErrorMessage('User number must be between 2 and 5');
@@ -110,6 +123,7 @@ function CreateRoomPopup({ isVisible, onClose, selectedMovie }) {
           <input
             type="number"
             value={numberOfUsers}
+            onAbort={handleNumberOfUsersKeyDown}
             onChange={handleNumberOfUsersChange}
             placeholder="Enter number of users"
             min="2"
