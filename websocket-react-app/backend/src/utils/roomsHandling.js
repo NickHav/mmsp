@@ -70,6 +70,7 @@ const handleRoomMessage = (parsedMessage) => {
 
         } else if (parsedMessage.type === 'syncAccepted') {
             const user = parsedMessage.user;
+            console.log(`Received syncAccepted message from user: ${user}`);
             // Initialize syncAcceptedUsers if not present
             if (!room.syncAcceptedUsers) {
                 room.syncAcceptedUsers = [];
