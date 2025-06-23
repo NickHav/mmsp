@@ -28,24 +28,24 @@ const handleRoomMessage = (parsedMessage) => {
                     userWs.send(JSON.stringify({ type: 'usersList', users: room.users, }));
                 }
             }
-        } else if (parsedMessage.type === 'requestRoomState'){
+        } else if (parsedMessage.type === 'requestRoomState') {
             const user = parsedMessage.user;
             if (!room.users.includes(user)) {
-              room.users.push(user);
+                room.users.push(user);
             }
 
             const userWs = Array.from(sharedState.wss.clients).find((client) => client.id === user);
             userWs.send(
-              JSON.stringify({
-                type: 'roomState',
-                room: {
-                  movie: room.movie,
-                  chatMessages: room.chatMessages || [],
-                  users: room.users,  
-                },
-              })
-            );       
-        } else if( parsedMessage.type === 'synchronizeTime') {
+                JSON.stringify({
+                    type: 'roomState',
+                    room: {
+                        movie: room.movie,
+                        chatMessages: room.chatMessages || [],
+                        users: room.users,
+                    },
+                })
+            );
+        } else if (parsedMessage.type === 'synchronizeTime') {
             const timestamp = parsedMessage.timestamp;
             const user = parsedMessage.user;
             const username = parsedMessage.user;
@@ -58,13 +58,36 @@ const handleRoomMessage = (parsedMessage) => {
                     userWs.send(JSON.stringify({ type: 'synchronizeTime', timestamp, user }));
                 }
             }
-            
+
+        } else if (parsedMessage.type === 'syncAccepted') {
+            const user = parsedMessage.user;
+            // Initialize syncAcceptedUsers if not present
+            if (!room.syncAcceptedUsers) {
+                room.syncAcceptedUsers = [];
+            }
+            // Add user if not already in the list
+            if (!room.syncAcceptedUsers.includes(user)) {
+                room.syncAcceptedUsers.push(user);
+            }
+
+            const numberOfUsers = room.users.length;
+            const numberOfAccepted = room.syncAcceptedUsers.length;
+
+            // Check if all users have accepted
+            if (numberOfAccepted === numberOfUsers) {
+                // All users accepted, broadcast to all users in the room
+                for (const userId of room.users) {
+                    const userWs = Array.from(sharedState.wss.clients).find((client) => client.id === userId);
+                    if (userWs && userWs.readyState === WebSocket.OPEN) {
+                        userWs.send(JSON.stringify({ type: 'allUsersSynchronized' }));
+                    }
+                }
+                // Optionally, reset for next sync round
+                room.syncAcceptedUsers = [];
+            }
         } else {
-            console.error('Unknown message type:', parsedMessage.type);
+            console.error('Room not found:', roomCode);
+            ws.send(JSON.stringify({ type: 'error', message: 'Room not found' }));
         }
-    } else {
-        console.error('Room not found:', roomCode);
-        ws.send(JSON.stringify({ type: 'error', message: 'Room not found' }));
     }
-}
-module.exports = { handleRoomMessage };
+    module.exports = { handleRoomMessage };
