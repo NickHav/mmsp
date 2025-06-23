@@ -49,6 +49,15 @@ const handleRoomMessage = (parsedMessage) => {
             const timestamp = parsedMessage.timestamp;
             const user = parsedMessage.user;
             const username = parsedMessage.user;
+            // Initialize syncAcceptedUsers if not present
+            if (!room.syncAcceptedUsers) {
+                room.syncAcceptedUsers = [];
+            }
+            // Add user if not already in the list. This is for the user who sent the synchronizeTime message.
+            if (!room.syncAcceptedUsers.includes(user)) {
+                console.log(`User ${user} has accepted synchronization.`);
+                room.syncAcceptedUsers.push(user);
+            }
             console.log(`Received synchronizeTime message: ${timestamp} from user: ${user}`);
             for (const user of room.users) {
                 if (user === username) continue;
@@ -67,6 +76,7 @@ const handleRoomMessage = (parsedMessage) => {
             }
             // Add user if not already in the list
             if (!room.syncAcceptedUsers.includes(user)) {
+                console.log(`User ${user} has accepted synchronization.`);
                 room.syncAcceptedUsers.push(user);
             }
 
