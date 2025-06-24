@@ -59,7 +59,6 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
         user: sessionStorage.getItem('username'),
         roomCode: sessionStorage.getItem('room')
       }));
-      onClose();
 
     } else if (syncType === 'received' && videoElement) {
       videoElement.pause();
@@ -69,7 +68,6 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
         user: sessionStorage.getItem('username'),
         roomCode: sessionStorage.getItem('room')
       }));
-      onClose();
     }
   };
 
