@@ -5,6 +5,7 @@ import './SynchronizeTime.css';
 function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
   const boxRef = useRef(null);
   const [countdown, setCountdown] = useState(null);
+  const [waitingForUsers, setWaitingForUsers] = useState(false);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -25,6 +26,7 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
         const msg = JSON.parse(event.data);
         if (msg.type === 'allUsersSynchronized') {
           setCountdown(5);
+          setWaitingForUsers(false);
         }
       } catch (e) {}
     };
@@ -49,6 +51,7 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
   }, [countdown, videoElement, onClose]);
 
   const handleAction = () => {
+    setWaitingForUsers(true);
     if (syncType === 'send' && videoElement) {
       videoElement.pause();
       videoElement.currentTime = timestamp;
@@ -59,7 +62,6 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
         user: sessionStorage.getItem('username'),
         roomCode: sessionStorage.getItem('room')
       }));
-
     } else if (syncType === 'received' && videoElement) {
       videoElement.pause();
       videoElement.currentTime = timestamp;
@@ -75,18 +77,22 @@ function SynchronizeTime({ timestamp, onClose, syncType, videoElement }) {
     <div className="synchronize-time-overlay">
       <div className="synchronize-time-box" ref={boxRef}>
         {countdown === null ? (
-          <>
-            <p>
-              {syncType === 'send'
-                ? '🕒 Current Timestamp:'
-                : '🔄 Sync request received! Target timestamp:'}
-              <br />
-              <strong>{timestamp?.toFixed(2)}s</strong>
-            </p>
-            <button className="send-timestamp-button" onClick={handleAction}>
-              {syncType === 'send' ? 'Send' : 'Sync'}
-            </button>
-          </>
+          waitingForUsers ? (
+            <p>⏳ Waiting for all the users to accept...</p>
+          ) : (
+            <>
+              <p>
+                {syncType === 'send'
+                  ? '🕒 Current Timestamp:'
+                  : '🔄 Sync request received! Target timestamp:'}
+                <br />
+                <strong>{timestamp?.toFixed(2)}s</strong>
+              </p>
+              <button className="send-timestamp-button" onClick={handleAction}>
+                {syncType === 'send' ? 'Send' : 'Sync'}
+              </button>
+            </>
+          )
         ) : (
           <p>
             ✅ All users synchronized!<br />
