@@ -65,9 +65,27 @@ function setupWebSocket(wss, usernames) {
           const room = rooms[roomCode];
           const userIndex = room.users.indexOf(ws.id);
           if (userIndex !== -1) {
-            room.users.splice(userIndex, 1); 
+            room.users.splice(userIndex, 1);
             console.log(`User ${ws.id} removed from room ${roomCode}`);
-            
+
+            // Remove from syncAcceptedUsers if present
+            if (room.syncAcceptedUsers) {
+              const syncIndex = room.syncAcceptedUsers.indexOf(ws.id);
+              if (syncIndex !== -1) {
+                room.syncAcceptedUsers.splice(syncIndex, 1);
+              }
+              // If all remaining users have accepted, notify them
+              if (room.syncAcceptedUsers.length === room.users.length && room.users.length > 0) {
+                for (const user of room.users) {
+                  const userWs = Array.from(sharedState.wss.clients).find((client) => client.id === user);
+                  if (userWs && userWs.readyState === WebSocket.OPEN) {
+                    userWs.send(JSON.stringify({ type: 'allUsersSynchronized' }));
+                  }
+                }
+                room.syncAcceptedUsers = [];
+              }
+            }
+
             for (const user of room.users) {
               const userWs = Array.from(sharedState.wss.clients).find((client) => client.id === user);
               if (userWs && userWs.readyState === WebSocket.OPEN) {
